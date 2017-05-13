@@ -4,25 +4,48 @@ namespace Corp\Http\Controllers;
 
 use Corp\Menu;
 use Corp\Repositories\MenuRepository;
+use Corp\Repositories\SliderRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
 class IndexController extends SiteController
 {
-    public function __construct()
+    public function __construct(SliderRepository $s_rep)
     {
         parent::__construct(new MenuRepository(new Menu()));
+
+        $this->s_rep = $s_rep;
 
         $this->bar = 'right';
         $this->template = env('THEME') . '.index';
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
+        $sliderItems = $this->getSlider();
+
+        $slider = view(env('THEME') . '.slider')->with('slider', $sliderItems)->render();
+
+        $this->vars = array_add($this->vars, 'slider', $slider);
+
         return $this->renderOutput();
+    }
+
+    private function getSlider()
+    {
+        $slider = $this->s_rep->get();
+
+        if($slider->isEmpty()) {
+            return false;
+        }
+
+        $slider->transform(function($item, $key) {
+            $item->img = Config::get('settings.slider_path') . '/' . $item->img;
+
+            return $item;
+        });
+
+        return $slider;
     }
 
     /**
