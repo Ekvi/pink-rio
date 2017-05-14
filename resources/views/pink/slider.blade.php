@@ -14,11 +14,9 @@
                         <div class="slide-content-holder-content" style="position: absolute; top:80px;left:500px;">
                     @endif
                             <div class="slide-title">
-                                {{--<h2 style="color:#fff">CORPORATE, MULTIPURPOSE.. <br /><span>PINK RIO</span></h2>--}}
                                 {!! $item->title !!}
                             </div>
                             <div class="slide-content" style="color:#fff">
-                                {{--<p>Nam id quam a odio euismod pellentesque. Etiam congue rutrum risus non vestibulum. Quisque a diam at ligula blandit consequat. Mauris ac mi velit, a tempor neque</p>--}}
                                 {!! $item->desc !!}
                             </div>
                         </div>
@@ -27,7 +25,7 @@
         </li>
         @set($i, $i+1)
         @endforeach
-        
+
     </ul>
 
     <div id="yit-widget-area" class="group">

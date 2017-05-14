@@ -24,4 +24,9 @@ Route::resource('/', 'IndexController', [
     ]
 ]);
 
+Route::resource('/portfolio', 'PortfolioController', [
+    'parameters' => [
+        'portfolio' => 'alias'
+    ]
+]);
 //Route::get('/home', 'HomeController@index')->name('home');
