@@ -27,7 +27,7 @@
 
     <meta name="description" content="{{ isset($meta_desc) ? $meta_desc : '' }}">
     <meta name="keywords" content="{{ isset($keywords) ? $keywords : '' }}">
-    
+
     <title>{{ $title or 'Pink' }}</title>
 
     <!-- [favicon] begin -->
