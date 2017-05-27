@@ -39,10 +39,20 @@
     <!-- START COMMENTS -->
     <div id="comments">
         <h3 id="comments-title">
-            <span>2</span> comments
+            <span>{{ count($article->comments) }}</span> {{ Lang::choice('ru.comments', count($article->comments)) }}
         </h3>
+
+        @set($com, $article->comments->groupBy('parent_id'))
+
         <ol class="commentlist group">
-            <li class="comment even depth-1">
+            @foreach($com as $k => $comments)
+                @if($k !== 0)
+                    @break
+                @endIf
+
+                @include(env('THEME') . '.comment', ['items' => $comments])
+            @endforeach
+            {{--<li class="comment even depth-1">
                 <div class="comment-container">
                     <div class="comment-author vcard">
                         <img alt="" src="images/avatar/unknow.png" class="avatar" height="75" width="75" />
@@ -68,8 +78,8 @@
                     <!-- .comment-meta .commentmetadata -->
                 </div>
                 <!-- #comment-##  -->
-            </li>
-            <li class="comment bypostauthor odd">
+            </li>--}}
+            {{--<li class="comment bypostauthor odd">
                 <div class="comment-container">
                     <div class="comment-author vcard">
                         <img alt="" src="images/avatar/nicola.jpeg" class="avatar" height="75" width="75" />
@@ -95,7 +105,7 @@
                     <!-- .comment-meta .commentmetadata -->
                 </div>
                 <!-- #comment-##  -->
-            </li>
+            </li>--}}
         </ol>
 
         <!-- START TRACKBACK & PINGBACK -->
